@@ -41,13 +41,10 @@ public class ViewUser {
                     }
                     break;
                 case LIST:
-                    List <User> usersList = new ArrayList();
-                    try {
-
-
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                    List <User> usersList = UserController.readUsers();
+//                    for (User u:UserController.readAllUsers()){
+//                        System.out.println(u);
+//                    }
 
 
                     break;

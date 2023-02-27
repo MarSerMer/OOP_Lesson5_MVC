@@ -27,11 +27,8 @@ public class UserController {
         throw new Exception("User not found");
     }
 
-    public List<User> readAllUsers() throws Exception {
-        List<User> allUsers = repository.getAllUsers();
-        if(!allUsers.isEmpty()) {
-            return allUsers;
-        }
-        throw new Exception("No users found, the list is empty.");
+    public List<User> readUsers(){
+        List<User> users = repository.getAllUsers();
+        return users;
     }
 }
