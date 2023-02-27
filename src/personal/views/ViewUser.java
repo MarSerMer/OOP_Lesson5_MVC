@@ -1,8 +1,12 @@
 package personal.views;
 
 import personal.controllers.UserController;
+import personal.model.RepositoryFile;
 import personal.model.User;
 
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ViewUser {
@@ -18,7 +22,7 @@ public class ViewUser {
 
         while (true) {
             String command = prompt("Введите команду: ");
-            com = Commands.valueOf(command);
+            com = Commands.valueOf(command.toUpperCase());
             if (com == Commands.EXIT) return;
             switch (com) {
                 case CREATE:
@@ -35,6 +39,17 @@ public class ViewUser {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+                    break;
+                case LIST:
+                    List <User> usersList = new ArrayList();
+                    try {
+
+
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+
+
                     break;
             }
         }
