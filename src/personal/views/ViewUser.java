@@ -21,34 +21,59 @@ public class ViewUser {
         Commands com = Commands.NONE;
 
         while (true) {
-            String command = prompt("Введите команду: ");
-            com = Commands.valueOf(command.toUpperCase());
-            if (com == Commands.EXIT) return;
-            switch (com) {
-                case CREATE:
-                    String firstName = prompt("Имя: ");
-                    String lastName = prompt("Фамилия: ");
-                    String phone = prompt("Номер телефона: ");
-                    userController.saveUser(new User(firstName, lastName, phone));
-                    break;
-                case READ:
-                    String id = prompt("Идентификатор пользователя: ");
-                    try {
-                        User user = userController.readUser(id);
-                        System.out.println(user);
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-                case LIST:
-                    List <User> usersList = UserController.readUsers();
-//                    for (User u:UserController.readAllUsers()){
-//                        System.out.println(u);
-//                    }
+            try {
+                String command = prompt("Введите команду: ");
+                com = Commands.valueOf(command.toUpperCase());
 
-
-                    break;
+                if (com == Commands.EXIT) return;
+                switch (com) {
+                    case CREATE:
+                        caseCreate();
+                        break;
+                    case READ:
+                        caseRead();
+                        break;
+                    case LIST:
+                        caseList();
+                        break;
+                    case DELETE:
+                        caseDelete();
+                        break;
+                }
+            } catch (Exception ee){
+                System.out.printf("Something went wrong with commands: %s \n", ee.getMessage());
             }
+            }
+        }
+
+    private void caseDelete() {
+        String id = prompt("Enter the id: ");
+        userController.deleteUser(id);
+        System.out.println();
+    }
+
+
+    private void caseCreate() throws Exception {
+        String firstName = prompt("Имя: ");
+        String lastName = prompt("Фамилия: ");
+        String phone = prompt("Номер телефона: ");
+        userController.saveUser(new User(firstName, lastName, phone));
+    }
+
+    private void caseRead() {
+        String id = prompt("Идентификатор пользователя: ");
+        try {
+            User user = userController.readUser(id);
+            System.out.println(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void caseList() {
+        List <User> usersList = userController.readUsers();
+        for (User u:usersList){
+            System.out.println(u);
         }
     }
 

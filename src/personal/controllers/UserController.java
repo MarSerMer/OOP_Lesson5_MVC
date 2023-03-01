@@ -2,17 +2,20 @@ package personal.controllers;
 
 import personal.model.Repository;
 import personal.model.User;
+import personal.model.ValidateUser;
 
 import java.util.List;
 
 public class UserController {
+    private ValidateUser validator = new ValidateUser();
     private final Repository repository;
 
     public UserController(Repository repository) {
         this.repository = repository;
     }
 
-    public void saveUser(User user) {
+    public void saveUser(User user) throws Exception {
+        validator.check(user);
         repository.CreateUser(user);
     }
 
@@ -31,4 +34,9 @@ public class UserController {
         List<User> users = repository.getAllUsers();
         return users;
     }
+
+    public void deleteUser (String id){
+        repository.deleteUser(id);
+    }
+
 }
