@@ -41,6 +41,21 @@ public class RepositoryFile implements Repository {
         return id;
     }
 
+    public void replaceUserInFile(User user, String userID) {
+
+        List<User> users = getAllUsers();
+        int i = 0;
+        for (User u:users){
+            if (u.getId().equals(userID)){
+                i = users.indexOf(u);
+                user.setId(userID);
+                users.set(i,user);
+                saveRepository(users);
+            }
+        }
+
+    }
+
     private void saveRepository(List<User> users) {
         List<String> lines = new ArrayList<>();
         for (User item: users) {

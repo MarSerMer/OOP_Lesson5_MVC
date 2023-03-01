@@ -18,6 +18,10 @@ public class UserController {
         validator.check(user);
         repository.CreateUser(user);
     }
+    public void replaceUser(User user, String userID) throws Exception {
+        validator.check(user);
+        repository.replaceUserInFile(user,userID);
+    }
 
     public User readUser(String userId) throws Exception {
         List<User> users = repository.getAllUsers();
@@ -37,6 +41,20 @@ public class UserController {
 
     public void deleteUser (String id){
         repository.deleteUser(id);
+    }
+
+    public void updateInformation(String userID, String option, String newInformation,User u) throws Exception {
+        switch (option) {
+                case "1": //first name
+                    replaceUser(new User(userID, newInformation, u.getLastName(), u.getPhone()),userID);
+                    break;
+                case "2": //last name
+                    replaceUser(new User(userID, u.getFirstName(), newInformation, u.getPhone()),userID);
+                    break;
+                case "3": //phone
+                    replaceUser(new User(userID, u.getFirstName(), u.getLastName(), newInformation),userID);
+                    break;
+            }
     }
 
 }

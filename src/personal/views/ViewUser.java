@@ -39,6 +39,9 @@ public class ViewUser {
                     case DELETE:
                         caseDelete();
                         break;
+                    case UPDATE:
+                        caseUpdate();
+                        break;
                 }
             } catch (Exception ee){
                 System.out.printf("Something went wrong with commands: %s \n", ee.getMessage());
@@ -75,6 +78,19 @@ public class ViewUser {
         for (User u:usersList){
             System.out.println(u);
         }
+    }
+    private void caseUpdate() throws Exception {
+        System.out.println("So you want to update one of the contacts");
+        String userID = prompt("Please enter ID: ");
+        User u = userController.readUser(userID);
+        String askOption = prompt("Please enter 1 to change the first name, enter 2 to change the last name, enter 3 to change phone number: ");
+        if (askOption.equals("1")||askOption.equals("2")||askOption.equals("3")){
+            String newInformation = prompt("Please enter new information: ");
+            userController.updateInformation(userID,askOption,newInformation,u);
+        } else {
+            System.out.println("Wrong option");
+        }
+
     }
 
     private String prompt(String message) {
